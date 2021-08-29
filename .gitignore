@@ -6,3 +6,6 @@ __pycache__
 output/*
 metadata/*
 venv/
+'Long PM25 data (all UK).xlsx'
+'Postcodes_coordinates_A_NP.csv'
+'Postcodes_coordinates_NR_Z.csv'
