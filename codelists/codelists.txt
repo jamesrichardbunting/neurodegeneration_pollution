@@ -1,2 +1,2 @@
-opensafely/dementia-complete/2021-02-09
+opensafely/dementia-complete/48c76cf8
 opensafely/other-neurological-conditions/2020-06-02
