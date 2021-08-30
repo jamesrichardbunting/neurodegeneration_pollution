@@ -18,5 +18,4 @@ study = StudyDefinition(
             "int": {"distribution": "population_ages"},
         },
     ),
-
 )
