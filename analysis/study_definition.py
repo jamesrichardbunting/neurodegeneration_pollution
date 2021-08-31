@@ -38,14 +38,15 @@ study = StudyDefinition(
     population = patients.satisfying(
         
         """
-        static_patient AND clinical_event AND age_in_2002 >=60 
+        static_patient AND clinical_event AND (age_in_2002 > 59)
         """,
 
         # Registered with one practice since 1992
         static_patient = patients.registered_with_one_practice_between("1992-01-01", "2020-01-01"),
 
         # With one of the codes
-        clinical_event = patients.with_these_clinical_events(study_codes,
+        clinical_event = patients.with_these_clinical_events(
+            study_codes,
             between = ["2002-01-01", "2020-01-01"]),
 
         # Aged >= 60 as of 2002
@@ -53,6 +54,7 @@ study = StudyDefinition(
             return_expectations={
                 "rate" : "universal",
                 "int" : {"distribution" : "population_ages"},},),),
+
 
     # Date of clinical event (codes from the codelists)    
     clinical_event_date = patients.with_these_clinical_events(    
@@ -62,6 +64,17 @@ study = StudyDefinition(
         date_format="YYYY-MM-DD",
         find_first_match_in_period = True,
         return_expectations = {"date": {"earliest": "2002-01-01", "latest": "2020-01-01"},},),
+
+    
+    # Clinical event code (codes from the codelists)    
+    clinical_event_code = patients.with_these_clinical_events(    
+        study_codes,
+        between = ["2002-01-01", "2020-01-01"],
+        returning = "code",
+        find_first_match_in_period = True,
+        return_expectations = {
+            "rate": "universal", 
+            "category": {"ratios": {"100": 0.1, "200": 0.2, "300": 0.7},},},),
 
 
     # Age at clinical event
@@ -79,9 +92,10 @@ study = StudyDefinition(
             "rate": "universal", 
             "category": {"ratios": {"100": 0.1, "200": 0.2, "300": 0.7},},},),
 
+
     msoa = patients.address_as_of("clinical_event_date",
         returning="msoa",
         return_expectations={
             "rate": "universal",
-            "category": {"ratios": {"100": 0.1, "200": 0.2, "300": 0.7},},},)
+            "category": {"ratios": {},},},)
 )
