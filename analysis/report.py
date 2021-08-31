@@ -1,6 +1,6 @@
-import pandas as pd
+#import pandas as pd
 
-data = pd.read_csv("output/input.csv")
+#data = pd.read_csv("output/input.csv")
 
-fig = data.age.plot.hist().get_figure()
-fig.savefig("output/descriptive.png")
+#fig = data.age.plot.hist().get_figure()
+#fig.savefig("output/descriptive.png")
